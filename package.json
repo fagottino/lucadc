@@ -4,14 +4,25 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "sanity": "sanity dev",
+    "instagram:sync": "sh ./scripts/sync-instagram.sh",
+    "instagram:sync:browser": "sh ./scripts/sync-instagram-browser.sh",
+    "instagram:curate": "sh ./scripts/curate-instagram-assets.sh"
   },
   "dependencies": {
+    "@portabletext/react": "^6.0.3",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^5.20.0",
+    "framer-motion": "^12.38.0",
     "next": "16.2.3",
+    "next-sanity": "^12.2.2",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "sanity": "^5.20.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

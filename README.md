@@ -1,36 +1,147 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Luca DC Portfolio
 
-## Getting Started
+Single-page portfolio for Luca DC, with Italian as the main language and English as the second, built with Next.js App Router, Tailwind CSS v4, and Sanity.
 
-First, run the development server:
+## Product direction
+
+- Single-page structure with anchor navigation
+- Public artwork grouped by type
+- Homepage lightbox driven by `?art=<slug>#works`
+- Minimal paper-and-ink palette with reusable hand-drawn line assets
+- Direct contact only: email, Instagram, WhatsApp
+
+## Stack
+
+- `Next.js 16` for routing, metadata, and server-first rendering
+- `Tailwind CSS v4` for layout and utility styling
+- `Sanity` for content modeling and Studio editing
+- `Framer Motion` for restrained reveal and lightbox motion
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+The app starts at [http://localhost:3000](http://localhost:3000) and redirects to `/it`.
+
+## Environment
+
+Copy `.env.example` to `.env.local` and fill in the values you need:
+
+```bash
+cp .env.example .env.local
+```
+
+Required for the frontend:
+
+- `NEXT_PUBLIC_SITE_URL`
+
+Required for Sanity CMS:
+
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`
+- `NEXT_PUBLIC_SANITY_DATASET`
+- `NEXT_PUBLIC_SANITY_API_VERSION`
+
+If Sanity is not configured, the site falls back to local sample content so you can still develop the frontend and UI.
+
+## Key routes
+
+- `/it` and `/en`
+- `/{locale}?art=<slug>#works` for the homepage lightbox state
+- `/studio`
+
+Legacy routes such as `/it/works/[slug]` and `/en/works/[slug]` redirect back to the homepage lightbox URL.
+
+## Useful commands
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run typecheck
+npm run build
+npm run sanity
+npm run instagram:sync
+npm run instagram:sync:browser
+npm run instagram:curate
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instagram intake workflow
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Instagram media is intentionally kept out of the public site surface. Raw downloads go to:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+assets/intake/instagram/luca._.dc/
+```
 
-## Learn More
+That folder is gitignored. The intake workflow downloads public feed posts and reels, media only, with no captions or metadata JSON:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run instagram:sync
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Or explicitly:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+python3 -m instaloader \
+  --reels \
+  --no-captions \
+  --no-metadata-json \
+  --no-profile-pic \
+  --dirname-pattern="assets/intake/instagram/{profile}" \
+  --filename-pattern="{date_utc}_UTC_{shortcode}" \
+  -- luca._.dc
+```
 
-## Deploy on Vercel
+If anonymous public scraping rate-limits or fails, use the browser-cookie fallback:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run instagram:sync:browser
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Or explicitly:
+
+```bash
+python3 -m gallery_dl \
+  --cookies-from-browser chrome/instagram.com \
+  -D assets/intake/instagram/luca._.dc/posts \
+  --download-archive assets/intake/instagram/luca._.dc/archive.txt \
+  -f "{date:%Y-%m-%dT%H-%M-%SZ}_UTC_{shortcode}_{num}.{extension}" \
+  "https://www.instagram.com/luca._.dc/posts/"
+
+python3 -m gallery_dl \
+  --cookies-from-browser chrome/instagram.com \
+  -D assets/intake/instagram/luca._.dc/reels \
+  --download-archive assets/intake/instagram/luca._.dc/reels-archive.txt \
+  -f "{date:%Y-%m-%dT%H-%M-%SZ}_UTC_{shortcode}_{num}.{extension}" \
+  "https://www.instagram.com/luca._.dc/reels/"
+```
+
+Curate the raw downloads before publishing them:
+
+```bash
+npm run instagram:curate
+```
+
+The curation step keeps only drawing-related files, moves the approved originals into `assets/intake/instagram/luca._.dc/selected/`, copies the public assets into `public/`, and deletes the rest of the raw intake.
+
+## Content model
+
+The Sanity studio includes schema types for:
+
+- `siteSettings`
+- `artwork`
+- `artistProfile`
+- `commissionPage`
+- `pressItem`
+
+Artwork keeps the internal `collection` field, but the public UI maps it to three visible types:
+
+- `Portraits`
+- `Studies`
+- `Subjects`
+
+## Deployment
+
+Deploy to Vercel. Set the same environment variables in the Vercel project, connect the custom domain, and use preview deployments for review before launch.

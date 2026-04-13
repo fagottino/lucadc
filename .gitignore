@@ -23,6 +23,8 @@
 # misc
 .DS_Store
 *.pem
+assets/intake/instagram/
+assets/review/
 
 # debug
 npm-debug.log*
