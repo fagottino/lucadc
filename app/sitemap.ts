@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 import type { MetadataRoute } from "next";
 
 import { locales, withLocale } from "@/lib/i18n/config";
