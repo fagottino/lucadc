@@ -27,12 +27,12 @@ export function DirectContactSection({
         </div>
 
         <div className="space-y-5 text-sm leading-7 text-[color:var(--ink-soft)]">
-          <div className="space-y-3">
+          {/* <div className="space-y-3">
             <div className="sketch-divider" aria-hidden />
             <a className="sketch-link hover:text-[color:var(--ink)]" href={`mailto:${settings.contactEmail}`}>
               {settings.contactEmail}
             </a>
-          </div>
+          </div> */}
 
           <div className="space-y-3">
             <div className="sketch-divider" aria-hidden />
@@ -41,12 +41,12 @@ export function DirectContactSection({
             </a>
           </div>
 
-          <div className="space-y-3">
+          {/* <div className="space-y-3">
             <div className="sketch-divider" aria-hidden />
             <a className="sketch-link hover:text-[color:var(--ink)]" href={settings.whatsappUrl}>
               WhatsApp
             </a>
-          </div>
+          </div> */}
 
           <div className="space-y-3">
             <div className="sketch-divider" aria-hidden />
