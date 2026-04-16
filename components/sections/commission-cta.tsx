@@ -33,7 +33,6 @@ export function CommissionCta({ locale }: { locale: Locale }) {
           </p>
           <Link
             href={`${withLocale(locale)}#contact`}
-            locale={false}
             className="sketch-link text-[0.74rem] tracking-[0.18em] text-[color:var(--ink-soft)] uppercase hover:text-[color:var(--ink)]"
           >
             {/* {locale === "it" ? "Scrivi per iniziare" : "Get in touch to start"} */}

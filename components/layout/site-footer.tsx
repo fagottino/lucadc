@@ -24,7 +24,6 @@ export function SiteFooter({
         </div>
         <Link
           href={withLocale(locale, "/privacy")}
-          locale={false}
           className="sketch-link text-[0.72rem] tracking-[0.18em] text-[color:var(--ink-soft)] uppercase hover:text-[color:var(--ink)]"
         >
           {dictionary.common.privacy}

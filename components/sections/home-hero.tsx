@@ -3,16 +3,16 @@ import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import { resolveImageUrl } from "@/lib/images/resolve-image";
 import { withLocale } from "@/lib/i18n/config";
-import type { Artwork, Locale, SiteSettings } from "@/types/site";
+import type { ArtworkImage, Locale, SiteSettings } from "@/types/site";
 
 export function HomeHero({
   locale,
   settings,
-  featuredArtwork,
+  portrait,
 }: {
   locale: Locale;
   settings: SiteSettings;
-  featuredArtwork: Artwork;
+  portrait: ArtworkImage;
 }) {
   return (
     <section id="top" className="px-5 pb-14 pt-12 sm:px-8 sm:pb-18 sm:pt-16">
@@ -50,27 +50,16 @@ export function HomeHero({
           <Reveal delay={0.08} className="space-y-6">
             <div className="sketch-frame bg-[color:var(--paper-deep)] p-2">
               <Image
-                src={resolveImageUrl(featuredArtwork.coverImage, {
+                src={resolveImageUrl(portrait, {
                   width: 1600,
                   height: 1900,
                 })}
-                alt={featuredArtwork.coverImage.alt}
+                alt={portrait.alt}
                 width={1600}
                 height={1900}
                 priority
                 className="aspect-[4/5] h-full w-full object-cover"
               />
-            </div>
-            <div className="space-y-3">
-              <p className="font-serif-display text-2xl text-[color:var(--ink)]">
-                {featuredArtwork.title}
-              </p>
-              <div className="sketch-divider" aria-hidden />
-              <div className="flex flex-wrap gap-x-5 gap-y-2 text-[0.72rem] tracking-[0.18em] text-[color:var(--ink-soft)] uppercase">
-                <span>{featuredArtwork.year}</span>
-                {featuredArtwork.dimensions ? <span>{featuredArtwork.dimensions}</span> : null}
-                {/* <span>{locale === "it" ? "Apri nei disegni" : "Open in drawings"}</span> */}
-              </div>
             </div>
           </Reveal>
         </div>

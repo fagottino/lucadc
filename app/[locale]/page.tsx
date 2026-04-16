@@ -47,11 +47,9 @@ export default async function LocaleHomePage({
 
   const { art } = await searchParams;
   const { works, profile, settings } = await getHomePageData(locale);
-
-  const heroArtwork = works.find((work) => work.featured) ?? works[0];
   const initialArtworkSlug = Array.isArray(art) ? art[0] : art ?? null;
 
-  if (!heroArtwork) {
+  if (!works.length) {
     notFound();
   }
 
@@ -66,7 +64,7 @@ export default async function LocaleHomePage({
           sameAs: [settings.instagramUrl, settings.whatsappUrl],
         })}
       />
-      <HomeHero locale={locale} settings={settings} featuredArtwork={heroArtwork} />
+      <HomeHero locale={locale} settings={settings} portrait={profile.portrait} />
       <SeriesGallery
         locale={locale}
         works={works}

@@ -53,7 +53,6 @@ function LanguageSwitcherFrame({
                 : "text-[color:var(--ink-soft)] hover:text-[color:var(--ink)]"
             }`}
             hrefLang={targetLocale}
-            locale={false}
           >
             {targetLocale}
           </Link>

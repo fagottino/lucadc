@@ -18,11 +18,7 @@ export function ArtworkCard({
   const dictionary = getDictionary(locale);
 
   return (
-    <Link
-      href={withLocale(locale, `/works/${artwork.slug}`)}
-      locale={false}
-      className="group block"
-    >
+    <Link href={withLocale(locale, `/works/${artwork.slug}`)} className="group block">
       <div className="relative overflow-hidden rounded-[2rem] border border-stone-200/70 bg-stone-200/40">
         <Image
           src={resolveImageUrl(artwork.coverImage, { width: 1200, height: 1500 })}

@@ -29,7 +29,7 @@ export function SiteHeader({
     <header className="sketch-rule-after sticky top-0 z-30 bg-[color:var(--paper)]/94 backdrop-blur-sm">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-5 py-4 sm:px-8 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex items-center justify-between gap-6">
-          <Link href={withLocale(locale)} locale={false} className="min-w-0">
+          <Link href={withLocale(locale)} className="min-w-0">
             <div className="text-[0.66rem] tracking-[0.2em] text-[color:var(--ink-soft)] uppercase">
               {settings.cityLabel}
             </div>
