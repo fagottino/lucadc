@@ -22,6 +22,7 @@ type ArtworkSeed = {
   title: LocalizedString;
   description: LocalizedParagraphs;
   seoExcerpt: LocalizedString;
+  coverAlt: LocalizedString;
   year: number;
   medium: ArtworkMedium;
   dimensions: string;
@@ -68,6 +69,8 @@ function buildArtworkSeed({
   titleIt,
   excerptEn,
   excerptIt,
+  coverAltEn = titleEn,
+  coverAltIt = titleIt,
   year,
   medium,
   collection,
@@ -81,6 +84,8 @@ function buildArtworkSeed({
   titleIt: string;
   excerptEn: string;
   excerptIt: string;
+  coverAltEn?: string;
+  coverAltIt?: string;
   year: number;
   medium: ArtworkMedium;
   collection: ArtworkCollection;
@@ -102,6 +107,10 @@ function buildArtworkSeed({
     seoExcerpt: {
       en: excerptEn,
       it: excerptIt,
+    },
+    coverAlt: {
+      en: coverAltEn,
+      it: coverAltIt,
     },
     year,
     medium,
@@ -165,8 +174,8 @@ const artistProfilesByLocale: Record<Locale, ArtistProfile> = {
       "Mi interessa il segno umano, non l'effetto perfetto.",
     ],
     portrait: {
-      src: "/artworks/instagram/portraits/2025-08-04T13-16-28Z_UTC_DM7zeyaIYYz_1.jpg",
-      alt: "Ritratto a matita di Brad Pitt.",
+      src: "/artworks/instagram/portraits/8dfb7566-d7e3-4c8c-ab5f-3ff63caa3d83.png",
+      alt: "Autoritratto stilizzato basato sulla mia foto profilo.",
     },
     processImages: [
       {
@@ -191,10 +200,6 @@ const artistProfilesByLocale: Record<Locale, ArtistProfile> = {
         src: "/process/instagram/reels/2023-09-15T15-54-22Z_UTC_CxN8uxHsiWp_1.mp4",
         caption: "Un volto che emerge.",
       },
-      {
-        src: "/process/instagram/reels/2022-08-16T12-55-34Z_UTC_ChUjEdJAt11_1.mp4",
-        caption: "Disegno dal vivo.",
-      },
     ],
   },
   en: {
@@ -211,8 +216,8 @@ const artistProfilesByLocale: Record<Locale, ArtistProfile> = {
       "I care about the human mark, not a polished effect.",
     ],
     portrait: {
-      src: "/artworks/instagram/portraits/2025-08-04T13-16-28Z_UTC_DM7zeyaIYYz_1.jpg",
-      alt: "Pencil portrait of Brad Pitt.",
+      src: "/artworks/instagram/portraits/8dfb7566-d7e3-4c8c-ab5f-3ff63caa3d83.png",
+      alt: "Stylized self-portrait based on my profile picture.",
     },
     processImages: [
       {
@@ -236,10 +241,6 @@ const artistProfilesByLocale: Record<Locale, ArtistProfile> = {
       {
         src: "/process/instagram/reels/2023-09-15T15-54-22Z_UTC_CxN8uxHsiWp_1.mp4",
         caption: "A face taking shape.",
-      },
-      {
-        src: "/process/instagram/reels/2022-08-16T12-55-34Z_UTC_ChUjEdJAt11_1.mp4",
-        caption: "Drawing from life.",
       },
     ],
   },
@@ -323,6 +324,8 @@ const artworkSeeds: ArtworkSeed[] = [
     titleIt: "Brad Pitt",
     excerptEn: "Graphite portrait with a calm surface and visible hand.",
     excerptIt: "Ritratto in grafite con superficie calma e mano visibile.",
+    coverAltEn: "Pencil portrait of Brad Pitt.",
+    coverAltIt: "Ritratto a matita di Brad Pitt.",
     year: 2025,
     medium: "graphite",
     collection: "portraits",
@@ -599,7 +602,7 @@ function mapSeedToArtwork(seed: ArtworkSeed, locale: Locale): Artwork {
     availability: seed.availability,
     coverImage: {
       src: seed.coverImage,
-      alt: getLocalizedValue(seed.title, locale),
+      alt: getLocalizedValue(seed.coverAlt, locale),
     },
     detailImages: seed.detailImages.map((src, index) => ({
       src,

@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "sanity": "sanity dev",
+    "sanity:sync:self-portrait": "sanity exec scripts/sync-self-portrait-to-sanity.mjs --with-user-token",
     "instagram:sync": "sh ./scripts/sync-instagram.sh",
     "instagram:sync:browser": "sh ./scripts/sync-instagram-browser.sh",
     "instagram:curate": "sh ./scripts/curate-instagram-assets.sh"
