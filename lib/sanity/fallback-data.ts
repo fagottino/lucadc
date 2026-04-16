@@ -130,7 +130,7 @@ const siteSettingsByLocale: Record<Locale, SiteSettings> = {
     instagramUrl: "https://www.instagram.com/luca._.dc/",
     whatsappUrl: "https://wa.me/393330000000",
     cityLabel: "Venafro (IS), Molise",
-    responseTimeLabel: "Entro 3 giorni",
+    responseTimeLabel: "Rispondo entro 3 giorni",
   },
   en: {
     artistName,
@@ -146,7 +146,7 @@ const siteSettingsByLocale: Record<Locale, SiteSettings> = {
     instagramUrl: "https://www.instagram.com/luca._.dc/",
     whatsappUrl: "https://wa.me/393330000000",
     cityLabel: "Venafro (IS), Molise",
-    responseTimeLabel: "Within 2 days",
+    responseTimeLabel: "Response within 3 days",
   },
 };
 
